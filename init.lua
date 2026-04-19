@@ -600,16 +600,16 @@ require('lazy').setup({
       --  See `:help lsp-config` for information about keys and how to configure
       ---@type table<string, vim.lsp.Config>
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
+        clangd = {},
+        gopls = {},
+        pyright = {},
+        rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
 
         stylua = {}, -- Used to format Lua code
 
@@ -875,7 +875,7 @@ require('lazy').setup({
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
       -- ensure basic parser are installed
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local parsers = { 'bash', 'python', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
       require('nvim-treesitter').install(parsers)
 
       ---@param buf integer
@@ -946,6 +946,10 @@ require('lazy').setup({
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
+
+  -- My Plugins section
+
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000, opts = {} },
 }, { ---@diagnostic disable-line: missing-fields
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -968,5 +972,80 @@ require('lazy').setup({
   },
 })
 
+-- MY configs setup
+
+require('catppuccin').setup {
+  flavour = 'auto', -- latte, frappe, macchiato, mocha
+  background = { -- :h background
+    light = 'latte',
+    dark = 'mocha',
+  },
+  transparent_background = true, -- disables setting the background color.
+  float = {
+    transparent = false, -- enable transparent floating windows
+    solid = false, -- use solid styling for floating windows, see |winborder|
+  },
+  term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+  dim_inactive = {
+    enabled = false, -- dims the background color of inactive window
+    shade = 'dark',
+    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+  },
+  no_italic = false, -- Force no italic
+  no_bold = false, -- Force no bold
+  no_underline = false, -- Force no underline
+  styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+    comments = { 'italic' }, -- Change the style of comments
+    conditionals = { 'italic' },
+    loops = {},
+    functions = { 'bold' },
+    keywords = { 'standout' },
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+    operators = {},
+    -- miscs = {}, -- Uncomment to turn off hard-coded styles
+  },
+  lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+    virtual_text = {
+      errors = { 'italic' },
+      hints = { 'italic' },
+      warnings = { 'italic' },
+      information = { 'italic' },
+      ok = { 'italic' },
+    },
+    underlines = {
+      errors = { 'underline' },
+      hints = { 'underline' },
+      warnings = { 'underline' },
+      information = { 'underline' },
+      ok = { 'underline' },
+    },
+    inlay_hints = {
+      background = true,
+    },
+  },
+  color_overrides = {},
+  custom_highlights = {},
+  default_integrations = true,
+  auto_integrations = false,
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    notify = false,
+    mini = {
+      enabled = true,
+      indentscope_color = '',
+    },
+    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+  },
+}
+
+-- setup must be called before loading
+vim.cmd.colorscheme 'catppuccin-mocha'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
