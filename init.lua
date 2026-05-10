@@ -388,13 +388,23 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
+        defaults = { 
+          initial_mode = 'normal',
+          mappings = {
+            i = {
+              ["<C-d>"] = require('telescope.actions').delete_buffer, -- Delete in Insert Mode
+            },
+            n = {
+              ["d"] =  require('telescope.actions').delete_buffer,     -- Delete in Normal Mode
+            },
+          },
+
         --   mappings = {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
-        -- },
+         },
         -- pickers = {}
-        extensions = {
+              extensions = {
           ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
       }
