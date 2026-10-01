@@ -8,6 +8,12 @@ return {
       vim.keymap.set('n', ';', ':')
       vim.keymap.set('i', 'jj', '<ESC>')
       vim.opt.clipboard = 'unnamedplus'
+      
+      vim.opt.backupcopy = "yes"
+      vim.opt.backup = false
+      vim.opt.writebackup = false
+      vim.opt.swapfile = false
+      vim.opt.fsync = true
 
       -- Navigate splits with Ctrl+hjkl
       vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
